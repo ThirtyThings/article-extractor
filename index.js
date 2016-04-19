@@ -8,7 +8,10 @@ var summary = require('./lib/parser/summary');
 
 module.exports = {
   extractData: function (articleUrl, callback) {
-    request(articleUrl, function (err, response, body) {
+    var opts = {headers: {
+      'User-Agent': 'Mozilla/5.0 (Android 4.4; Mobile; rv:41.0) Gecko/41.0 Firefox/41.0'
+    }}
+    request(articleUrl, opts, function (err, response, body) {
       var data = {};
       var preppedHtml = cleaner.prepForParsing(body);
 
