@@ -13,16 +13,14 @@ module.exports = {
     }}
     request(articleUrl, opts, function (err, response, body) {
       if(err) return callback(err)
-      if(response.statusCode != 200) return callback('Invalid response')
+      if(response.statusCode != 200) return callback('Invalid response: '+response.statusCode)
       var data = {};
       var preppedHtml = cleaner.prepForParsing(body);
-
       data.domain = url.parse(articleUrl).host;
       data.author = author.getAuthor(preppedHtml);
       data.title = title.getTitle(preppedHtml);
       data.content = content.getArticleContent(preppedHtml, data.host);
       data.summary = summary.getSummary(preppedHtml, data.content);
-
       callback(null, data);
     });
   }
