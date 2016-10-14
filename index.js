@@ -15,6 +15,7 @@ module.exports = {
       if(err) return callback(err, response, body)
       if(response.statusCode != 200) return callback('Invalid response: '+response.statusCode, response, body)
       if(!response || !response.headers || !response.headers['content-type'] || response.headers['content-type'].indexOf("html") == -1) return callback(null, {}, response, body)
+      if(articleUrl.indexOf(".pdf") > -1) return callback(null, {}, response, body)
       else body = body.toString();
       var data = {};
       var preppedHtml = cleaner.prepForParsing(body);
